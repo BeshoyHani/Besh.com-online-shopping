@@ -1,0 +1,90 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+
+  <div class="container d-flex flex-column justify-content-center ">
+    <div class="container text-center my-3 col d-flex justify-content-around w-75">
+        <form method="Get" action="/admin/orders">
+            <input type="hidden" name="status" value="all"/>
+            <input type="submit" class="btn btn-primary px-5" value="All"/>
+        </form>
+
+        <form method="Get" action="/admin/orders">
+            <input type="hidden" name="status" value="pending"/>
+            <input type="submit" class="btn btn-primary px-5" value="Pending"/>
+        </form>
+
+        <form method="Get" action="/admin/orders">
+            <input type="hidden" name="status" value="sent"/>
+            <input type="submit" class="btn btn-primary px-5" value="Sent"/>
+        </form>
+        
+        <form method="Get" action="/admin/orders">
+            <input type="hidden" name="status" value="completed"/>
+            <input type="submit" class="btn btn-primary px-5" value="Completed"/>
+        </form>
+    </div>
+
+
+        <form  method="Get" action="/admin/orders">
+            <div class="d-flex flex-row  justify-content-center my-3">
+                <input type="search" class="form-control me-2 w-50" name="email" placeholder="email@example.com"/>
+                <input type="submit" class="btn btn-outline-success" value="Search"/>
+            </div>
+        </form>
+
+</div>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Address</th>
+        <th scope="col">Status</th>
+        <th scope="col">Time</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0; i<orders.length; i++){ %>
+      <tr>
+        <th scope="row" ><%= i+1 %></th>
+        <td><%= orders[i].name %></td>
+        <td><%= orders[i].userEmail%></td>
+        <td><%= orders[i].amount %></td>
+        <td><%= orders[i].cost %></td>
+        <td><%= orders[i].address %></td>
+        
+        <% if(orders[i].status !== 'completed'){ %>
+          <td style="width: 15%">
+            <form action="/admin/orders/save-status" method="POST" class="input-group mb-3 mt-1">
+              <div class="d-flex flex-row  justify-content-center">
+                <select class="form-select" name="status">
+                    <option selected disabled><%= orders[i].status%></option>
+                    <option value="pending">Pending</option>
+                    <option value="sent">Sent</option>
+                    <option value="completed">Completed</option>
+                    
+                    <input type="hidden" name="orderId" value="<%= orders[i]._id%>" >
+                    <input type="submit" value="Save" class="btn btn-outline-success  mx-2 ">
+                    </select> 
+              </div>
+            </form>
+        </td>
+        <% } else { %>
+            <td class="py-4"><%= orders[i].status %></td>
+        <% } %>
+
+        <td><%= orders[i].time %></td>
+      </tr>
+    <% } %>
+
+    </tbody>
+  </table>
+
+<%- include('parts/footer')%>

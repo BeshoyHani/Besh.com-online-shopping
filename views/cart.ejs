@@ -1,0 +1,43 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0; i<items.length; i++){ %>
+      <tr>
+        <th scope="row" style="width: 10%"><%= i+1 %></th>
+        <td style="width: 25%"><%= items[i].name %></td>
+        <td style="width: 15%"><%= items[i].price %></td>
+        <form method="post">
+            <td style="width: 10%"> <input type="number" name="amount" class="form-control" value="<%= items[i].amount %>"/> </td>
+            <td style="width: 15%"><%= items[i].price * items[i].amount %> $</td>
+
+            <td style="width: 25%">
+                <input type="hidden" name="cartId" value="<%= items[i]._id %>"/>
+                <input type="hidden" name="itemName" value="<%= items[i].name%>"/>
+                <input type="hidden" name="itemCost" value="<%= items[i].amount * items[i].price %>"/>
+                <input type="hidden" name="itemAmount" value="<%= items[i].amount %>"/>
+                <input type="hidden" name="itemId" value="<%= items[i].productId %>"/>
+
+                <input type="submit" class="btn btn-success px-3 mx-1" value="Save" formaction="/cart/save"/>
+                <input type="submit" class="btn btn-primary px-3 mx-1" value="order" formaction="/orders/address"/>
+                <input type="submit" class="btn btn-danger px-3 mx-1" value="Delete" formaction="/cart/delete"/>
+            </td>
+        </form>
+      </tr>
+    <% } %>
+
+    </tbody>
+  </table>
+
+<%- include('parts/footer')%>

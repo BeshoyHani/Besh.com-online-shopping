@@ -1,0 +1,50 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col col-12 col-md-6 input-group">
+            <div class="card mx-2 my-2" style="width: 18rem;">
+                <img src="/<%=user.image%>" class="card-img-top" alt="...">
+
+                <div class="card-body d-flex justify-content-center">
+                    <h1><span class="label label-default"><%= user.username%></span></h1>                       
+                </div>
+            </div>
+
+        <div class="card mx-2 my-2 w-75 h-100" style="width: 18rem;">
+            <div class="card-body">
+                <!-- email -->
+                <div class="input-group mb-3">
+                    <input class="form-control py-2" type="email" disabled name="email" value="<%= user.email%>" >    
+                </div>
+                
+                <form method="pOST" enctype="multipart/form-data">
+                    <!-- name -->
+                    <div class="input-group mb-3">
+                        <input class="form-control py-2" type="text" name="username" value="<%= user.username%>" >
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-success py-2" type="submit" value="Save" formaction="/profile/save/name">
+                        </div>
+                    </div>
+
+
+                    <!-- image -->
+                    <div class="input-group mb-3">
+                        <input type="file" accept="image/*" name="image" class="form-control">
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-success" type="submit" value="Save" formaction="/profile/save/image">
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('parts/footer')%>

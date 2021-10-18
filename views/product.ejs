@@ -1,0 +1,41 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+
+<div class="container">
+    <% if(!product){ %>
+        <div class="alert alert-danger my-3">
+            Oops, Product not Found.
+        </div>
+    <% } else{ %>
+        <div class="row">
+            <div class="col col-12 col-md-6 input-group">
+                    <div class="card mx-2 my-2" style="width: 18rem;">
+                        <img src="/<%=product.image%>" class="card-img-top" alt="...">
+    
+                        <div class="card-body">
+                            <h5 class="card-title">Price: <%=product.price%> $</h5>
+                            <form action="/cart" method="POST">
+                                <input type="number" name="amount" class="form-control my-2">
+                                <input type="hidden" name="name" value="<%=product.name%>">
+                                <input type="hidden" name="price" value="<%=product.price%>">
+                                <input type="hidden" name="productId" value="<%=product._id%>">
+                                <input type="hidden" name="routeTo" value="/product/<%=product._id%>">
+                                <input type="submit" value="Add to cart" class="btn btn-primary">                            
+                            </form>
+                        </div>
+                    </div>
+    
+                <div class="card mx-2 my-2 w-75 h-100" style="width: 18rem;">
+                    <div class="card-body">
+                        <h3 class="card-title"> <%=product.name%>  </h3>
+                        <p class="card-text"><%=product.description%></p>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%- include('parts/footer')%>

@@ -1,0 +1,39 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Address</th>
+        <th scope="col">Status</th>
+        <th scope="col">Time</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for(let i=0; i<orders.length; i++){ %>
+      <tr>
+        <th scope="row" ><%= i+1 %></th>
+        <td><%= orders[i].name %></td>
+        <td><%= orders[i].amount %></td>
+        <td><%= orders[i].cost %></td>
+        <td><%= orders[i].address %></td>
+        <td><%= orders[i].status %></td>
+        <td><%= orders[i].time %></td>
+        <form method="post">
+            <td>
+                <input type="hidden" name="orderId" value="<%= orders[i]._id %>"/>
+                <input type="submit" class="btn btn-danger px-3 mx-1" value="Cancel" formaction="/orders/cancel"/>
+            </td>
+        </form>
+      </tr>
+    <% } %>
+
+    </tbody>
+  </table>
+
+<%- include('parts/footer')%>

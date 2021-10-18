@@ -1,0 +1,62 @@
+<%- include('parts/header')%>
+<%- include('parts/navbar')%>
+
+<div class="container">
+
+    <form action="/" method="GET" class="input-group mb-3 mt-1">
+
+        <select class="form-select" name="category">
+            <option selected disabled><%=Category%></option>
+            <option value="all">All</option>
+            <option value="clothes">Clothes</option>
+            <option value="phones">Phones</option>
+            <option value="computers-laptops">Computers and Laptops</option>
+            
+            <input type="submit" value="Filter" class="btn btn-primary  mx-2 ">
+            </select> 
+    </form>
+
+    <%if(products.length==0){%>
+        <div class="alert alert-danger">
+            Oops, There is no products.
+        </div>
+    <%} else{%>
+    
+    <%if(validationError){%>
+        <div class="alert alert-danger">
+            <%=validationError.msg%>
+        </div>
+    <%}%>
+        <div class="row">
+            <% for(let product of products) { %>
+                
+            <div class="col col-12 col-md-6 col-lg-4 col-xl-3 pb-3">
+                <div class="card" style="width: 18rem;">
+                    <img src="<%=product.image%>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/product/<%=product._id%>"> <%=product.name%> </a>
+                            <p>Price: <%=product.price%> $</p>
+                        </h5>
+                        
+                        <form action="/cart" method="POST">
+                        <input type="number" name="amount" class="form-control my-2">
+                        <input type="hidden" name="name" value="<%=product.name%>">
+                        <input type="hidden" name="price" value="<%=product.price%>">
+                        <input type="hidden" name="productId" value="<%=product._id%>">
+                        <input type="hidden" name="routeTo" value="/">
+                        <input type="submit" value="Add to cart" class="btn btn-primary">
+                        
+                        </form>
+    
+                    </div>
+                    </div>
+            </div>
+    
+            <% } %>
+        </div>
+
+    <%}%>
+</div>
+
+<%- include('parts/footer')%>
